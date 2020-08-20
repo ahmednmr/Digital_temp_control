@@ -10,7 +10,6 @@ RM := rm -rf
 -include sources.mk
 -include MCAL/subdir.mk
 -include HAL/subdir.mk
--include APP/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -33,60 +32,61 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Air_Quality_Atmega32.lss \
+Temp_control_Atmega32.lss \
 
 FLASH_IMAGE += \
-Air_Quality_Atmega32.hex \
+Temp_control_Atmega32.hex \
 
 EEPROM_IMAGE += \
-Air_Quality_Atmega32.eep \
+Temp_control_Atmega32.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Air_Quality_Atmega32.elf secondary-outputs
+all: Temp_control_Atmega32.elf secondary-outputs
 
 # Tool invocations
-Air_Quality_Atmega32.elf: $(OBJS) $(USER_OBJS)
+Temp_control_Atmega32.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Air_Quality_Atmega32.map -mmcu=atmega32 -o "Air_Quality_Atmega32.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,Temp_control_Atmega32.map -mmcu=atmega32 -o "Temp_control_Atmega32.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.lss: Air_Quality_Atmega32.elf
+Temp_control_Atmega32.lss: Temp_control_Atmega32.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Air_Quality_Atmega32.elf  >"Air_Quality_Atmega32.lss"
+	-avr-objdump -h -S Temp_control_Atmega32.elf  >"Temp_control_Atmega32.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.hex: Air_Quality_Atmega32.elf
+Temp_control_Atmega32.hex: Temp_control_Atmega32.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Air_Quality_Atmega32.elf  "Air_Quality_Atmega32.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Temp_control_Atmega32.elf  "Temp_control_Atmega32.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.eep: Air_Quality_Atmega32.elf
+Temp_control_Atmega32.eep: Temp_control_Atmega32.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Air_Quality_Atmega32.elf  "Air_Quality_Atmega32.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Temp_control_Atmega32.elf  "Temp_control_Atmega32.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Air_Quality_Atmega32.elf
+sizedummy: Temp_control_Atmega32.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 Air_Quality_Atmega32.elf
+	-avr-size --format=avr --mcu=atmega32 Temp_control_Atmega32.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Air_Quality_Atmega32.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Temp_control_Atmega32.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents
+.SECONDARY:
 
 -include ../makefile.targets

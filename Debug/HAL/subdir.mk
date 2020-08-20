@@ -4,22 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../HAL/CS811.c \
-../HAL/EF_LCD.c \
-../HAL/ESP_8266.c \
-../HAL/temp_sensor_lm35.c 
+../HAL/LCD.c \
+../HAL/lm35.c 
 
 OBJS += \
-./HAL/CS811.o \
-./HAL/EF_LCD.o \
-./HAL/ESP_8266.o \
-./HAL/temp_sensor_lm35.o 
+./HAL/LCD.o \
+./HAL/lm35.o 
 
 C_DEPS += \
-./HAL/CS811.d \
-./HAL/EF_LCD.d \
-./HAL/ESP_8266.d \
-./HAL/temp_sensor_lm35.d 
+./HAL/LCD.d \
+./HAL/lm35.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

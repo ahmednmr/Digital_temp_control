@@ -8,25 +8,30 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include"APP/state_machine.h"
-
 #include<avr/io.h>
 #include<util/delay.h>
 
 
-#include"MCAL/spechial_timer.h"
-#include"HAL/EF_LCD.h"
-#include"HAL/CS811.h"
-#include"HAL/ESP_8266.h"
-#include"HAL/temp_sensor_lm35.h"
+#include"MCAL/UART.h"
+#include"HAL/lm35.h"
+#include"HAL/LCD.h"
 
+#define DEFAULT_DESIRED_TEMP  32
+#define LM35_CH               6
 
-typedef enum
-{
-	TEMP_uploade,
-	CO2_uploade,
-	TVOC_uploade,
-}current_uploade;
+#define   Heater_init    	DDRD|=(1<<PD4)
+#define   Buzzer_init       DDRD|=(1<<PD5)
+
+#define   Heater_ON         PORTD|=(1<<PD4)
+#define   Buzzer_ON         PORTD|=(1<<PD5)
+#define   Heater_OFF        PORTD&=~(1<<PD4)
+#define   Buzzer_OFF        PORTD&=~(1<<PD5)
+
+#define   UP_SW_init        DDRD&=~(1<<PD2)
+#define   DOWN_SW_init      DDRD&=~(1<<PD3)
+
+#define   UP_SW_reading     PIND&(1<<PD2)
+#define   DOWN_SW_reading   PIND&(1<<PD3)
 
 
 #endif /* MAIN_H_ */

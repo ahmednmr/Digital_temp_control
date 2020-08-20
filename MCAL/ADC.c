@@ -13,7 +13,7 @@
 void ADC_init(void)
 {
 
-	ADMUX=0b11000000;     // vcc refrence - ADLAR=0/CH0
+	ADMUX=0b01000000;     // vcc refrence - ADLAR=0/CH0
 	ADCSRA=0b10000111;    //Enable ADC - Prescaler "/128"
 
 }
